@@ -11,6 +11,6 @@ public interface IDanhMucSanPhamRepository extends JpaRepository<DanhMucSanPham,
     public Integer findByIdMax();
 
     @Modifying(clearAutomatically = true)
-    @Query(value ="insert into the_gioi_den_95.public.danh_muc_san_pham(id,ten_danh_muc,anh_danh_muc) values(nextval('seq_danh_muc_san_pham'),?1,?2)",nativeQuery = true)
+    @Query(value ="insert into the_gioi_den_95.public.danh_muc_san_pham(ten_danh_muc,anh_danh_muc) values(?1,?2)",nativeQuery = true)
     public void insertItem(@Param("tenDanhMuc")String tenDanhMuc, @Param("anhDanhMuc") String anhDanhMuc);
 }
