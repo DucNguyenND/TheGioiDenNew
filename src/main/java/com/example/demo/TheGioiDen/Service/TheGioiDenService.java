@@ -32,12 +32,8 @@ public class TheGioiDenService {
         return this.theGioiDenRepository.getAllSanPhamByIdDanhMuc(page1,id,size);
     }
 
-    public SanPhamResDto getSanPhamById(Integer id){
-        SanPham sanPham=this.theGioiDenRepository.getSanPhamById(id);
-        SanPhamResDto sanPhamResDto=new SanPhamResDto();
-        sanPhamResDto.setSanPham(sanPham);
-        sanPhamResDto.setListAnh(this.anhSanPhamRepository.getAnhSanPhamByIdSanPham(id));
-        return sanPhamResDto;
+    public List<AnhSanPham> getSanPhamById(Integer id){
+        return this.anhSanPhamRepository.getAnhSanPhamByIdSanPham(id);
     }
 
     @Transactional
@@ -72,25 +68,34 @@ public class TheGioiDenService {
         return true;
     }
 
-
+    @Transactional
     public Boolean xoaAnh(Integer id){
         this.anhSanPhamRepository.deleteById(id);
         return true;
     }
 
+    @Transactional
     public AnhSanPham themMoiAnhByIdSanPham(Integer id,AnhSanPham anhSanPham){
         this.anhSanPhamRepository.insertItem(anhSanPham.getLinkAnh(),id);
         return anhSanPham;
     }
 
+    @Transactional
     public Boolean themDanhMuc(DanhMucSanPham danhMucSanPham){
          this.danhMucSanPhamRepository.insertItem(danhMucSanPham.getTenDanhMuc(),danhMucSanPham.getAnhDanhMuc());
          return true;
     }
 
+    @Transactional
     public Boolean xoaDanhMuc(Integer id){
          this.danhMucSanPhamRepository.deleteById(id);
          return true;
+    }
+
+    @Transactional
+    public DanhMucSanPham suaDanhMuc(DanhMucSanPham id){
+        return this.danhMucSanPhamRepository.save(id);
+
     }
 
     public List<DanhMucSanPham> getAllDanhMuc(){

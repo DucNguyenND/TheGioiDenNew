@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -22,7 +23,7 @@ public interface IAnhSanPhamRepository extends JpaRepository<AnhSanPham, Integer
     public Integer findByIdMax();
 
     @Modifying(clearAutomatically = true)
-    @Query(value ="insert into the_gioi_den_95.public.anh_san_pham(id,link_anh,san_pham_id) values(nextval('seq_anh_san_pham'),?1,?2)",nativeQuery = true)
+    @Query(value ="insert into the_gioi_den_95.public.anh_san_pham(link_anh,san_pham_id) values(?1,?2)",nativeQuery = true)
     public void insertItem(@Param("linkAnhSanPham")String linkAnh,@Param("sanPhamId") Integer sanPhamId);
 
 }

@@ -33,7 +33,7 @@ public class TheGioiDenRestController {
 
     // API lấy chi tiết sản phẩm theo id
     @GetMapping("/get-sp-by-id")
-    public SanPhamResDto getSanPhamById(@RequestParam Integer id) {
+    public List<AnhSanPham> getSanPhamById(@RequestParam Integer id) {
         return this.service.getSanPhamById(id);
     }
 
@@ -67,6 +67,12 @@ public class TheGioiDenRestController {
         return this.service.themDanhMuc(danhMucSanPham);
     }
 
+    // API sửa danh mục
+    @PutMapping("/sua-danh-muc")
+    public DanhMucSanPham suaDanhMuc(@RequestBody DanhMucSanPham danhMucSanPham) {
+        return this.service.suaDanhMuc(danhMucSanPham);
+    }
+
     // API xóa danh mục
     @DeleteMapping("/xoa-danh-muc")
     public Boolean XoaDanhMucById(@RequestBody Integer id) {
@@ -74,7 +80,7 @@ public class TheGioiDenRestController {
     }
 
     // API get all danh mục
-    @DeleteMapping("/get-all-danh-muc")
+    @GetMapping("/get-all-danh-muc")
     public List<DanhMucSanPham> getAllDanhMuc(){
         return this.service.getAllDanhMuc();
     }
