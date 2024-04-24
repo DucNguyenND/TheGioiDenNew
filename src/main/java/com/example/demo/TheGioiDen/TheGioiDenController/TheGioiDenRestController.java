@@ -91,4 +91,11 @@ public class TheGioiDenRestController {
     public List<SanPham> search(@ModelAttribute KeySearchSanPhamReq keySearchSanPhamReq) {
         return this.service.search(keySearchSanPhamReq);
     }
+
+    // API sửa sản phẩm
+    @PutMapping("/sua-san-pham")
+    public void suaSanPham(@RequestBody SanPham sanPham) {
+         this.service.suaSanPham(sanPham);
+    }
+
 }

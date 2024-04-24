@@ -93,8 +93,29 @@ public class TheGioiDenService {
     }
 
     @Transactional
-    public DanhMucSanPham suaDanhMuc(DanhMucSanPham id){
-        return this.danhMucSanPhamRepository.save(id);
+    public DanhMucSanPham suaDanhMuc(DanhMucSanPham danhMucSanPham){
+        return this.danhMucSanPhamRepository.save(danhMucSanPham);
+
+    }
+
+    @Transactional
+    public void suaSanPham(SanPham sanPham){
+         this.theGioiDenRepository.updateItem(
+                sanPham.getTenSanPham(),
+                sanPham.getThuongHieu(),
+                sanPham.getMaSp(),
+                sanPham.getGiaSp(),
+                sanPham.getDienAp(),
+                sanPham.getCongSuat(),
+                sanPham.getChiSoHoanMau(),
+                sanPham.getTuoiTho(),
+                sanPham.getAnhSang(),
+                sanPham.getKichThuoc(),
+                sanPham.getMoTa(),
+                sanPham.getLinkAnhChinh(),
+                sanPham.getDanhMucSanPhamId(),
+                sanPham.getId()
+        );
 
     }
 
