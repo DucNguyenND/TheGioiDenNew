@@ -4,6 +4,7 @@ import com.example.demo.TheGioiDen.Request.SanPhamResDto;
 import com.example.demo.TheGioiDen.Service.TheGioiDenService;
 import com.example.demo.TheGioiDen.entity.AnhSanPham;
 import com.example.demo.TheGioiDen.entity.DanhMucSanPham;
+import com.example.demo.TheGioiDen.entity.KeySearchSanPhamReq;
 import com.example.demo.TheGioiDen.entity.SanPham;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +84,11 @@ public class TheGioiDenRestController {
     @GetMapping("/get-all-danh-muc")
     public List<DanhMucSanPham> getAllDanhMuc(){
         return this.service.getAllDanhMuc();
+    }
+
+    //API search theo tên sản phẩm và danh mục
+    @GetMapping("/search")
+    public List<SanPham> search(@ModelAttribute KeySearchSanPhamReq keySearchSanPhamReq) {
+        return this.service.search(keySearchSanPhamReq);
     }
 }

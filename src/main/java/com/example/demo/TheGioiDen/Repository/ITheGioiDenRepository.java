@@ -41,4 +41,8 @@ public interface ITheGioiDenRepository  extends JpaRepository<SanPham, Integer> 
             @Param("linkAnhChinh") String linkAnhChinh,
             @Param("danhMucSanPhamId") Integer danhMucSanPhamId
             );
+
+
+    @Query(value ="select  *,count(*) as TOTAL_ELEMENT from the_gioi_den_95.public.SAN_PHAM where upper(ten_san_pham) like upper(concat('%',concat(:tenSanPham,'%'))) and(:idDanhMuc is null or danh_muc_san_pham_id=:idDanhMuc) group by id LIMIT :size OFFSET :page ",nativeQuery = true)
+    public List<SanPham> search(@Param("tenSanPham") String tenSanPham,@Param("idDanhMuc") Integer idDanhMuc,@Param("size") Integer size,@Param("page") Integer page);
 }

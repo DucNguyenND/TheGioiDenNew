@@ -6,6 +6,7 @@ import com.example.demo.TheGioiDen.Repository.ITheGioiDenRepository;
 import com.example.demo.TheGioiDen.Request.SanPhamResDto;
 import com.example.demo.TheGioiDen.entity.AnhSanPham;
 import com.example.demo.TheGioiDen.entity.DanhMucSanPham;
+import com.example.demo.TheGioiDen.entity.KeySearchSanPhamReq;
 import com.example.demo.TheGioiDen.entity.SanPham;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,8 +29,7 @@ public class TheGioiDenService {
         return this.theGioiDenRepository.getAllSanPham(size,page);
     }
     public List<SanPham> getAllSanPhamByIdDanhMuc(Integer page,Integer id,Integer size){
-        Integer page1=page*1;
-        return this.theGioiDenRepository.getAllSanPhamByIdDanhMuc(page1,id,size);
+        return this.theGioiDenRepository.getAllSanPhamByIdDanhMuc(page,id,size);
     }
 
     public List<AnhSanPham> getSanPhamById(Integer id){
@@ -100,5 +100,9 @@ public class TheGioiDenService {
 
     public List<DanhMucSanPham> getAllDanhMuc(){
        return this.danhMucSanPhamRepository.findAll();
+    }
+
+    public List<SanPham> search(KeySearchSanPhamReq keySearchSanPhamReq){
+        return this.theGioiDenRepository.search(keySearchSanPhamReq.getTenSanPham(),keySearchSanPhamReq.getIdDanhMuc(),keySearchSanPhamReq.getSize(),keySearchSanPhamReq.getPage());
     }
 }
