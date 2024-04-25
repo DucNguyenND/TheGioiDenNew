@@ -61,10 +61,11 @@ public class TheGioiDenService {
 
                 );
        Integer id=this.theGioiDenRepository.findByIdMax();
+       if (sanPham.getListAnh()!=null){
         List<AnhSanPham>list=sanPham.getListAnh();
         for (int i = 0; i < sanPham.getListAnh().size(); i++) {
             this.anhSanPhamRepository.insertItem(list.get(i).getLinkAnh(),id);
-        }
+        }}
         return true;
     }
 
