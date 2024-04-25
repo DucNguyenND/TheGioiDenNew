@@ -32,10 +32,16 @@ public class TheGioiDenRestController {
         return this.service.getAllSanPhamByIdDanhMuc(page,idDanhMuc,size);
     }
 
-    // API lấy chi tiết sản phẩm theo id
+    // API lấy ảnh sản phẩm theo id
     @GetMapping("/get-sp-by-id")
     public List<AnhSanPham> getSanPhamById(@RequestParam Integer id) {
         return this.service.getSanPhamById(id);
+    }
+
+    //API lấy thông tin chi tiết
+    @GetMapping("/detail")
+    public SanPhamResDto detail(@RequestParam Integer id) {
+        return this.service.findByID(id);
     }
 
     //API thêm mới sản phẩm
