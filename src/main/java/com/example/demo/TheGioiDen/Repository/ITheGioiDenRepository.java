@@ -14,10 +14,10 @@ public interface ITheGioiDenRepository  extends JpaRepository<SanPham, Integer> 
     @Query(value ="select *,count(*) as TOTAL_ELEMENT from the_gioi_den_95.public.SAN_PHAM group by id LIMIT :size OFFSET :page",nativeQuery = true)
     public List<SanPham> getAllSanPham(@Param("size") Integer size,@Param("page") Integer page);
 
-    @Query(value ="select * from the_gioi_den_95.public.SAN_PHAM where danh_muc_san_pham_id=:id LIMIT :size OFFSET :page",nativeQuery = true)
+    @Query(value ="select *,count(*) as TOTAL_ELEMENT from the_gioi_den_95.public.SAN_PHAM where danh_muc_san_pham_id=:id group by id LIMIT :size OFFSET :page",nativeQuery = true)
     public List<SanPham> getAllSanPhamByIdDanhMuc(@Param("page") Integer page,@Param("id") Integer id,@Param("size") Integer size);
 
-    @Query(value ="select * from the_gioi_den_95.public.SAN_PHAM where id=:id",nativeQuery = true)
+    @Query(value ="select *,count(*) as TOTAL_ELEMENT from the_gioi_den_95.public.SAN_PHAM where id=:id",nativeQuery = true)
     public SanPham getSanPhamById(@Param("id") Integer id);
 
 
