@@ -36,6 +36,13 @@ public class TheGioiDenService {
         return this.anhSanPhamRepository.getAnhSanPhamByIdSanPham(id);
     }
 
+    public SanPhamResDto findByID(Integer id){
+        SanPhamResDto sanPhamResDto=new SanPhamResDto();
+        sanPhamResDto.setSanPham(this.theGioiDenRepository.getSanPhamById(id));
+        sanPhamResDto.setListAnh(this.anhSanPhamRepository.getAnhSanPhamByIdSanPham(id));
+        return sanPhamResDto;
+    }
+
     @Transactional
     public Integer xoaSanPham(Integer id){
         this.theGioiDenRepository.deleteById(id);
