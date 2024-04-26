@@ -63,4 +63,10 @@ public class SanPham implements Serializable {
     @Column(name = "TOTAL_ELEMENT")
     private Integer totalElement;
 
+    @Column(name = "HIEU_SUAT")
+    private String hieuSuat;
+
+    @Column(name = "GOC_CHIEU")
+    private String gocChieu;
+
 }
