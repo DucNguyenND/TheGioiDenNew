@@ -82,7 +82,7 @@ public class TheGioiDenRestController {
 
     // API xóa danh mục
     @DeleteMapping("/xoa-danh-muc")
-    public Boolean XoaDanhMucById(@RequestBody Integer id) {
+    public Boolean XoaDanhMucById(@RequestParam Integer id) {
         return this.service.xoaDanhMuc(id);
     }
 
