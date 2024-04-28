@@ -46,7 +46,7 @@ public class TheGioiDenService {
 
     @Transactional
     public Integer xoaSanPham(Integer id) {
-        this.theGioiDenRepository.deleteById(id);
+        this.theGioiDenRepository.deleteByIdSanPham(id);
         return this.anhSanPhamRepository.deleteByIdSanPham(id);
     }
 
