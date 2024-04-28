@@ -68,4 +68,7 @@ public interface ITheGioiDenRepository  extends JpaRepository<SanPham, Integer> 
             @Param("hieuSuat") String hieuSuat,
             @Param("gocChieu") String gocChieu
     );
+    @Modifying(clearAutomatically = true)
+    @Query(value ="delete from the_gioi_den_95.public.SAN_PHAM where id=:id",nativeQuery = true)
+    public Integer deleteByIdSanPham(@Param("id") Integer id);
 }
