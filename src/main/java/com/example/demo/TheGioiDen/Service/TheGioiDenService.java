@@ -26,11 +26,13 @@ public class TheGioiDenService {
     private IDanhMucSanPhamRepository danhMucSanPhamRepository;
 
     public List<SanPham> getAllSanPham(Integer page, Integer size) {
+        page=page*size;
         return this.theGioiDenRepository.getAllSanPham(size, page);
     }
 
     public List<SanPham> getAllSanPhamByIdDanhMuc(Integer page, Integer id, Integer size) {
-        return this.theGioiDenRepository.getAllSanPhamByIdDanhMuc(page, id, size);
+        page=page*size;
+        return this.theGioiDenRepository.getAllSanPhamByIdDanhMuc( id, size,page);
     }
 
     public List<AnhSanPham> getSanPhamById(Integer id) {

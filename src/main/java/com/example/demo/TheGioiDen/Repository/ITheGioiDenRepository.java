@@ -11,11 +11,11 @@ import java.util.List;
 
 @Repository
 public interface ITheGioiDenRepository  extends JpaRepository<SanPham, Integer> {
-    @Query(value ="select *,count(*) as TOTAL_ELEMENT from the_gioi_den_95.public.SAN_PHAM group by id LIMIT :size OFFSET :page",nativeQuery = true)
+    @Query(value ="with tmp as(select count(*) as TOTAL_ELEMENT from SAN_PHAM)select tmp.*,sp.* from the_gioi_den_95.public.SAN_PHAM sp join tmp on 1=1 order by id LIMIT :size OFFSET :page",nativeQuery = true)
     public List<SanPham> getAllSanPham(@Param("size") Integer size,@Param("page") Integer page);
 
-    @Query(value ="select *,count(*) as TOTAL_ELEMENT from the_gioi_den_95.public.SAN_PHAM where danh_muc_san_pham_id=:id group by id LIMIT :size OFFSET :page",nativeQuery = true)
-    public List<SanPham> getAllSanPhamByIdDanhMuc(@Param("page") Integer page,@Param("id") Integer id,@Param("size") Integer size);
+    @Query(value ="with tmp as(select count(*) as TOTAL_ELEMENT from SAN_PHAM where danh_muc_san_pham_id=?1)select tmp.*,sp.* from the_gioi_den_95.public.SAN_PHAM sp join tmp on 1=1 and sp.danh_muc_san_pham_id=?1 LIMIT ?2 OFFSET ?3",nativeQuery = true)
+    public List<SanPham> getAllSanPhamByIdDanhMuc(@Param("id") Integer id,@Param("size") Integer size,@Param("page") Integer page);
 
     @Query(value ="select *,1 as TOTAL_ELEMENT from the_gioi_den_95.public.SAN_PHAM where id=:id",nativeQuery = true)
     public SanPham getSanPhamById(@Param("id") Integer id);
