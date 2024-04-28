@@ -45,7 +45,7 @@ public interface ITheGioiDenRepository  extends JpaRepository<SanPham, Integer> 
             );
 
 
-    @Query(value ="select  *,count(*) as TOTAL_ELEMENT from the_gioi_den_95.public.SAN_PHAM where upper(ten_san_pham) like upper(concat('%',concat(:tenSanPham,'%'))) and(:idDanhMuc is null or danh_muc_san_pham_id=:idDanhMuc) group by id LIMIT :size OFFSET :page ",nativeQuery = true)
+    @Query(value ="with tmp as(select count(*) as TOTAL_ELEMENT from SAN_PHAM  where upper(ten_san_pham) like upper(concat('%',concat(:tenSanPham,'%'))) and(:idDanhMuc is null or danh_muc_san_pham_id=:idDanhMuc))select tmp.*,sp.* from the_gioi_den_95.public.SAN_PHAM sp join tmp on 1=1 where upper(sp.ten_san_pham) like upper(concat('%',concat(:tenSanPham,'%'))) and(:idDanhMuc is null or sp.danh_muc_san_pham_id=:idDanhMuc) LIMIT :size OFFSET :page ",nativeQuery = true)
     public List<SanPham> search(@Param("tenSanPham") String tenSanPham,@Param("idDanhMuc") Integer idDanhMuc,@Param("size") Integer size,@Param("page") Integer page);
 
     @Modifying(clearAutomatically = true)

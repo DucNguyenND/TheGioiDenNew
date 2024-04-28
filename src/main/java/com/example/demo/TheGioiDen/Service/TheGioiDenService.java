@@ -140,6 +140,7 @@ public class TheGioiDenService {
     }
 
     public List<SanPham> search(KeySearchSanPhamReq keySearchSanPhamReq) {
+        keySearchSanPhamReq.setPage(keySearchSanPhamReq.getPage()*keySearchSanPhamReq.getSize());
         return this.theGioiDenRepository.search(keySearchSanPhamReq.getTenSanPham(), keySearchSanPhamReq.getIdDanhMuc(), keySearchSanPhamReq.getSize(), keySearchSanPhamReq.getPage());
     }
 }
