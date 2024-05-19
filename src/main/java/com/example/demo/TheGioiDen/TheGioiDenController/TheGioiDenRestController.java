@@ -1,11 +1,9 @@
 package com.example.demo.TheGioiDen.TheGioiDenController;
 
 import com.example.demo.TheGioiDen.Request.SanPhamResDto;
+import com.example.demo.TheGioiDen.Res.ThuMucRestDto;
 import com.example.demo.TheGioiDen.Service.TheGioiDenService;
-import com.example.demo.TheGioiDen.entity.AnhSanPham;
-import com.example.demo.TheGioiDen.entity.DanhMucSanPham;
-import com.example.demo.TheGioiDen.entity.KeySearchSanPhamReq;
-import com.example.demo.TheGioiDen.entity.SanPham;
+import com.example.demo.TheGioiDen.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -68,6 +66,14 @@ public class TheGioiDenRestController {
         return this.service.themMoiAnhByIdSanPham(id,anhSanPham);
     }
 
+    // API sửa sản phẩm
+    @PutMapping("/sua-san-pham")
+    public void suaSanPham(@RequestBody SanPhamResDto sanPham) {
+        this.service.suaSanPham(sanPham);
+    }
+
+//API danh mục
+
     // API thêm mới danh mục
     @PostMapping("/them-moi-danh-muc")
     public Boolean themMoiDanhMuc(@RequestBody DanhMucSanPham danhMucSanPham) {
@@ -98,9 +104,55 @@ public class TheGioiDenRestController {
         return this.service.search(keySearchSanPhamReq);
     }
 
-    // API sửa sản phẩm
-    @PutMapping("/sua-san-pham")
-    public void suaSanPham(@RequestBody SanPham sanPham) {
-         this.service.suaSanPham(sanPham);
+// API thư mục lớn
+
+    // API get all danh mục by thư mục
+    @GetMapping("/get-all-danh-muc-by-thu-muc")
+    public List<ThuMucRestDto> getAllDanhMucByThuMuc() {
+        return this.service.getAllThuMucDanhMuc();
+    }
+
+    // API thêm thư mục
+    @GetMapping("/them-thu-muc")
+    public void themDanhMuc(@RequestParam String tenThuMuc) {
+        this.service.themThuMuc(tenThuMuc);
+    }
+
+    // API sửa thư mục
+    @PutMapping("/sua-thu-muc")
+    public void suaDanhMuc(@RequestBody ThuMucDto thuMucDto) {
+        this.service.suaThuMuc(thuMucDto);
+    }
+
+    // API xóa thư mục
+    @DeleteMapping("/xoa-thu-muc")
+    public void suaDanhMuc(@RequestParam Integer id) {
+        this.service.xoaThuMuc(id);
+    }
+
+    // API get all thư mục
+    @GetMapping("/get-all-thu-muc")
+    public List<ThuMucDto> getAllThuMuc() {
+       return this.service.getAllThuMuc();
+    }
+
+// API ảnh khuyến mại
+
+    // API thêm mới banner(ảnh khuyến mại)
+    @PostMapping("/them-moi-banner")
+    public void themMoiBanner(@RequestBody List<String> listAnhBanner){
+        this.service.themMoiBanner(listAnhBanner);
+    }
+
+    // API get all banner
+    @GetMapping("/get-all-banner")
+    public List<BannerDto> getAllBanner() {
+        return this.service.getAllBanner();
+    }
+
+    // API xóa banner
+    @DeleteMapping("/xoa-banner")
+    public Integer xoaBanner(@RequestParam Integer id) {
+        return this.service.xoaBanner(id);
     }
 }

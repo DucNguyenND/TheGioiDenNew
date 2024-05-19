@@ -1,17 +1,14 @@
 package com.example.demo.TheGioiDen.Service;
 
-import com.example.demo.TheGioiDen.Repository.IAnhSanPhamRepository;
-import com.example.demo.TheGioiDen.Repository.IDanhMucSanPhamRepository;
-import com.example.demo.TheGioiDen.Repository.ITheGioiDenRepository;
+import com.example.demo.TheGioiDen.Repository.*;
 import com.example.demo.TheGioiDen.Request.SanPhamResDto;
-import com.example.demo.TheGioiDen.entity.AnhSanPham;
-import com.example.demo.TheGioiDen.entity.DanhMucSanPham;
-import com.example.demo.TheGioiDen.entity.KeySearchSanPhamReq;
-import com.example.demo.TheGioiDen.entity.SanPham;
+import com.example.demo.TheGioiDen.Res.ThuMucRestDto;
+import com.example.demo.TheGioiDen.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,6 +21,13 @@ public class TheGioiDenService {
 
     @Autowired
     private IDanhMucSanPhamRepository danhMucSanPhamRepository;
+
+    @Autowired
+    private IThuMucRepository thuMucRepository;
+
+    @Autowired
+    private IBannerRepository bannerRepository;
+
 
     public List<SanPham> getAllSanPham(Integer page, Integer size) {
         page=page*size;
@@ -96,7 +100,7 @@ public class TheGioiDenService {
 
     @Transactional
     public Boolean themDanhMuc(DanhMucSanPham danhMucSanPham) {
-        this.danhMucSanPhamRepository.insertItem(danhMucSanPham.getTenDanhMuc(), danhMucSanPham.getAnhDanhMuc());
+        this.danhMucSanPhamRepository.insertItem(danhMucSanPham.getTenDanhMuc(), danhMucSanPham.getAnhDanhMuc(),danhMucSanPham.getIdThuMuc());
         return true;
     }
 
@@ -113,25 +117,32 @@ public class TheGioiDenService {
     }
 
     @Transactional
-    public void suaSanPham(SanPham sanPham) {
+    public void suaSanPham(SanPhamResDto objInput) {
         this.theGioiDenRepository.updateItem(
-                sanPham.getTenSanPham(),
-                sanPham.getThuongHieu(),
-                sanPham.getMaSp(),
-                sanPham.getGiaSp(),
-                sanPham.getDienAp(),
-                sanPham.getCongSuat(),
-                sanPham.getChiSoHoanMau(),
-                sanPham.getTuoiTho(),
-                sanPham.getAnhSang(),
-                sanPham.getKichThuoc(),
-                sanPham.getMoTa(),
-                sanPham.getLinkAnhChinh(),
-                sanPham.getDanhMucSanPhamId(),
-                sanPham.getId(),
-                sanPham.getHieuSuat(),
-                sanPham.getGocChieu()
+                objInput.getSanPham().getTenSanPham(),
+                objInput.getSanPham().getThuongHieu(),
+                objInput.getSanPham().getMaSp(),
+                objInput.getSanPham().getGiaSp(),
+                objInput.getSanPham().getDienAp(),
+                objInput.getSanPham().getCongSuat(),
+                objInput.getSanPham().getChiSoHoanMau(),
+                objInput.getSanPham().getTuoiTho(),
+                objInput.getSanPham().getAnhSang(),
+                objInput.getSanPham().getKichThuoc(),
+                objInput.getSanPham().getMoTa(),
+                objInput.getSanPham().getLinkAnhChinh(),
+                objInput.getSanPham().getDanhMucSanPhamId(),
+                objInput.getSanPham().getId(),
+                objInput.getSanPham().getHieuSuat(),
+                objInput.getSanPham().getGocChieu()
         );
+        this.anhSanPhamRepository.deleteByIdSanPham(objInput.getSanPham().getId());
+        if ( objInput.getListAnh()!=null){
+            for (int i = 0; i < objInput.getListAnh().size(); i++) {
+                this.themMoiAnhByIdSanPham(objInput.getSanPham().getId(), objInput.getListAnh().get(i));
+            }
+
+        }
 
     }
 
@@ -143,4 +154,50 @@ public class TheGioiDenService {
         keySearchSanPhamReq.setPage(keySearchSanPhamReq.getPage()*keySearchSanPhamReq.getSize());
         return this.theGioiDenRepository.search(keySearchSanPhamReq.getTenSanPham(), keySearchSanPhamReq.getIdDanhMuc(), keySearchSanPhamReq.getSize(), keySearchSanPhamReq.getPage());
     }
+
+    public void themThuMuc(String tenThuMuc){
+        this.thuMucRepository.insertItem(tenThuMuc);
+    }
+
+    public void suaThuMuc(ThuMucDto thuMucDto){
+        this.thuMucRepository.save(thuMucDto);
+    }
+
+    public void xoaThuMuc(Integer id){
+        this.thuMucRepository.deleteByIdThuMuc(id);
+    }
+
+    public List<ThuMucDto> getAllThuMuc(){
+        return this.thuMucRepository.getAllThuMuc();
+    }
+
+    public List<ThuMucRestDto> getAllThuMucDanhMuc(){
+        List<ThuMucDto> thuMucRestDtoList=this.thuMucRepository.getAllThuMuc();
+        List<ThuMucRestDto> list=new ArrayList<>();
+        if (thuMucRestDtoList!=null){
+            for (int i = 0;i<thuMucRestDtoList.size() ; i++) {
+                ThuMucRestDto thuMucRestDto=new ThuMucRestDto();
+                thuMucRestDto.setTenThuMuc(thuMucRestDtoList.get(i).getTenThuMuc());
+                thuMucRestDto.setId(thuMucRestDtoList.get(i).getId());
+                thuMucRestDto.setListDanhMuc(this.danhMucSanPhamRepository.findByIdThuMuc(thuMucRestDto.getId()));
+                list.add(thuMucRestDto);
+            }
+        }
+        return list;
+    }
+
+    public void themMoiBanner(List<String> listAnhBanner){
+        for (int i = 0; i < listAnhBanner.size(); i++) {
+            this.bannerRepository.insertItem(listAnhBanner.get(i));
+        }
+    }
+
+    public Integer xoaBanner(Integer id){
+        return this.bannerRepository.deleteByIdBanner(id);
+    }
+
+    public List<BannerDto> getAllBanner(){
+        return this.bannerRepository.getAllBanner();
+    }
+
 }
