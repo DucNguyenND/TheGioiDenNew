@@ -13,21 +13,21 @@ import java.util.List;
 
 @Repository
 public interface IThuMucRepository extends JpaRepository<ThuMucDto, Integer> {
-    @Query(value ="select * from the_gioi_den_95.public.thu_muc where id=:id",nativeQuery = true)
+    @Query(value ="select * from public.thu_muc where id=:id",nativeQuery = true)
     public List<ThuMucDto> getAnhSanPhamByIdSanPham(@Param("id") Integer id);
 
-    @Query(value ="select * from the_gioi_den_95.public.thu_muc order by id",nativeQuery = true)
+    @Query(value ="select * from public.thu_muc order by id",nativeQuery = true)
     public List<ThuMucDto> getAllThuMuc();
 
     @Modifying(clearAutomatically = true)
-    @Query(value ="delete from the_gioi_den_95.public.thu_muc where id=:id",nativeQuery = true)
+    @Query(value ="delete from public.thu_muc where id=:id",nativeQuery = true)
     public Integer deleteByIdThuMuc(@Param("id") Integer id);
 
-    @Query(value ="select case when id_max is null then 1 else id_max+1 end from(select max(id) id_max from the_gioi_den_95.public.anh_san_pham)",nativeQuery = true)
+    @Query(value ="select case when id_max is null then 1 else id_max+1 end from(select max(id) id_max from public.anh_san_pham)",nativeQuery = true)
     public Integer findByIdMax();
 
     @Modifying(clearAutomatically = true)
-    @Query(value ="insert into the_gioi_den_95.public.thu_muc(ten_thu_muc) values(?1)",nativeQuery = true)
+    @Query(value ="insert into public.thu_muc(ten_thu_muc) values(?1)",nativeQuery = true)
     public void insertItem(@Param("tenThuMuc")String tenThuMuc);
 
 }
