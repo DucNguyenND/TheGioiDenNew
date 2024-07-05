@@ -155,14 +155,17 @@ public class TheGioiDenService {
         return this.theGioiDenRepository.search(keySearchSanPhamReq.getTenSanPham(), keySearchSanPhamReq.getIdDanhMuc(), keySearchSanPhamReq.getSize(), keySearchSanPhamReq.getPage());
     }
 
+    @Transactional
     public void themThuMuc(String tenThuMuc){
         this.thuMucRepository.insertItem(tenThuMuc);
     }
 
+    @Transactional
     public void suaThuMuc(ThuMucDto thuMucDto){
         this.thuMucRepository.save(thuMucDto);
     }
 
+    @Transactional
     public void xoaThuMuc(Integer id){
         this.thuMucRepository.deleteByIdThuMuc(id);
     }
@@ -186,12 +189,14 @@ public class TheGioiDenService {
         return list;
     }
 
+    @Transactional
     public void themMoiBanner(List<String> listAnhBanner){
         for (int i = 0; i < listAnhBanner.size(); i++) {
             this.bannerRepository.insertItem(listAnhBanner.get(i));
         }
     }
 
+    @Transactional
     public Integer xoaBanner(Integer id){
         return this.bannerRepository.deleteByIdBanner(id);
     }

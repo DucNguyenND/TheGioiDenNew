@@ -113,9 +113,9 @@ public class TheGioiDenRestController {
     }
 
     // API thêm thư mục
-    @GetMapping("/them-thu-muc")
-    public void themDanhMuc(@RequestParam String tenThuMuc) {
-        this.service.themThuMuc(tenThuMuc);
+    @PostMapping("/them-thu-muc")
+    public void themDanhMuc(@RequestBody ThuMucDto thuMucDto) {
+        this.service.themThuMuc(thuMucDto.getTenThuMuc());
     }
 
     // API sửa thư mục
