@@ -147,7 +147,7 @@ public class TheGioiDenService {
     }
 
     public List<DanhMucSanPham> getAllDanhMuc() {
-        return this.danhMucSanPhamRepository.findAll();
+        return this.danhMucSanPhamRepository.findAllDanhMuc();
     }
 
     public List<SanPham> search(KeySearchSanPhamReq keySearchSanPhamReq) {

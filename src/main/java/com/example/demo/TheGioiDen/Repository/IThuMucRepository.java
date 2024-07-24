@@ -13,10 +13,10 @@ import java.util.List;
 
 @Repository
 public interface IThuMucRepository extends JpaRepository<ThuMucDto, Integer> {
-    @Query(value ="select * from public.thu_muc where id=:id order by MUC_DO_UU_TIEN",nativeQuery = true)
+    @Query(value ="select * from public.thu_muc where id=:id ",nativeQuery = true)
     public List<ThuMucDto> getAnhSanPhamByIdSanPham(@Param("id") Integer id);
 
-    @Query(value ="select * from public.thu_muc order by id",nativeQuery = true)
+    @Query(value ="select * from public.thu_muc order by muc_do_uu_tien",nativeQuery = true)
     public List<ThuMucDto> getAllThuMuc();
 
     @Modifying(clearAutomatically = true)
