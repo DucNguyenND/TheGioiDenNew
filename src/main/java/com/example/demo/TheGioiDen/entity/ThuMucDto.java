@@ -28,4 +28,7 @@ public class ThuMucDto implements Serializable {
     @Column(name = "TEN_THU_MUC")
     private String tenThuMuc;
 
+    @Column(name = "MUC_DO_UU_TIEN")
+    private Integer mucDoUuTien;
+
 }

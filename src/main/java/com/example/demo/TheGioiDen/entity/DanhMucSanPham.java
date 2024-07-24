@@ -33,4 +33,7 @@ public class DanhMucSanPham implements Serializable {
 
     @Column(name = "id_thu_muc")
     private Integer idThuMuc;
+
+    @Column(name = "MUC_DO_UU_TIEN")
+    private Integer mucDoUuTien;
 }
