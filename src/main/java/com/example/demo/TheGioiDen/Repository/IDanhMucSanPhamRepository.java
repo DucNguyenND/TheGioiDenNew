@@ -16,6 +16,6 @@ public interface IDanhMucSanPhamRepository extends JpaRepository<DanhMucSanPham,
     @Query(value ="insert into public.danh_muc_san_pham(ten_danh_muc,anh_danh_muc,id_thu_muc) values(?1,?2,?3)",nativeQuery = true)
     public void insertItem(@Param("tenDanhMuc")String tenDanhMuc, @Param("anhDanhMuc") String anhDanhMuc,@Param("idThuMuc") Integer id);
 
-    @Query(value ="select * from public.danh_muc_san_pham where id_thu_muc=?1",nativeQuery = true)
+    @Query(value ="select * from public.danh_muc_san_pham where id_thu_muc=?1 order by MUC_DO_UU_TIEN",nativeQuery = true)
     public List<DanhMucSanPham> findByIdThuMuc(@Param("idThuMuc")Integer idDanhMuc);
 }
