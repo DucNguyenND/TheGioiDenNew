@@ -2,6 +2,7 @@ package com.example.demo.TheGioiDen.Repository;
 
 import com.example.demo.TheGioiDen.Res.ThuMucRestDto;
 import com.example.demo.TheGioiDen.entity.AnhSanPham;
+import com.example.demo.TheGioiDen.entity.DanhMucSanPham;
 import com.example.demo.TheGioiDen.entity.ThuMucDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -27,7 +28,20 @@ public interface IThuMucRepository extends JpaRepository<ThuMucDto, Integer> {
     public Integer findByIdMax();
 
     @Modifying(clearAutomatically = true)
-    @Query(value ="insert into public.thu_muc(ten_thu_muc) values(?1)",nativeQuery = true)
-    public void insertItem(@Param("tenThuMuc")String tenThuMuc);
+    @Query(value ="insert into public.thu_muc(ten_thu_muc,muc_do_uu_tien,id_tong_muc) values(?1,?2,?3)",nativeQuery = true)
+    public void insertItem(@Param("tenThuMuc")String tenThuMuc,
+                           @Param("mucDoUuTien") Integer mucDoUuTien,
+                           @Param("mucDoUuTien") Integer idTongMuc
+                           );
+
+    @Modifying(clearAutomatically = true)
+    @Query(value ="update public.thu_muc set muc_do_uu_tien=?1 where id=?2",nativeQuery = true)
+    public void mucDoUuTien(
+            @Param("mucDoUuTien") Integer mucDoUuTien,
+            @Param("id") Integer id
+    );
+
+    @Query(value ="select * from public.thu_muc where id_thu_muc=?1 order by MUC_DO_UU_TIEN",nativeQuery = true)
+    public List<ThuMucDto> findByIdTongMuc(@Param("idTongMuc")Integer idTongMuc);
 
 }

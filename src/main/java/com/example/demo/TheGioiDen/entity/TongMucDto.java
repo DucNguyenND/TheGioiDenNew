@@ -12,12 +12,12 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "THU_MUC")
+@Table(name = "TONG_MUC")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ThuMucDto implements Serializable {
+public class TongMucDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -25,13 +25,10 @@ public class ThuMucDto implements Serializable {
     @Column(name = "ID")
     private Integer id;
 
-    @Column(name = "TEN_THU_MUC")
-    private String tenThuMuc;
+    @Column(name = "TEN_TONG_MUC")
+    private String tenTongMuc;
 
     @Column(name = "MUC_DO_UU_TIEN")
     private Integer mucDoUuTien;
-
-    @Column(name = "ID_TONG_MUC")
-    private Integer idTongMuc;
 
 }

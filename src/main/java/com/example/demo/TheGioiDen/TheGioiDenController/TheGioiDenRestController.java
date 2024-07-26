@@ -2,6 +2,7 @@ package com.example.demo.TheGioiDen.TheGioiDenController;
 
 import com.example.demo.TheGioiDen.Request.SanPhamResDto;
 import com.example.demo.TheGioiDen.Res.ThuMucRestDto;
+import com.example.demo.TheGioiDen.Res.TongMucRestDto;
 import com.example.demo.TheGioiDen.Service.TheGioiDenService;
 import com.example.demo.TheGioiDen.entity.*;
 import lombok.RequiredArgsConstructor;
@@ -114,19 +115,19 @@ public class TheGioiDenRestController {
 
     // API thêm thư mục
     @PostMapping("/them-thu-muc")
-    public void themDanhMuc(@RequestBody ThuMucDto thuMucDto) {
-        this.service.themThuMuc(thuMucDto.getTenThuMuc());
+    public void themThuMuc(@RequestBody ThuMucDto thuMucDto) {
+        this.service.themThuMuc(thuMucDto.getTenThuMuc(),thuMucDto.getMucDoUuTien(),thuMucDto.getIdTongMuc());
     }
 
     // API sửa thư mục
     @PutMapping("/sua-thu-muc")
-    public void suaDanhMuc(@RequestBody ThuMucDto thuMucDto) {
+    public void suaThuMuc(@RequestBody ThuMucDto thuMucDto) {
         this.service.suaThuMuc(thuMucDto);
     }
 
     // API xóa thư mục
     @DeleteMapping("/xoa-thu-muc")
-    public void suaDanhMuc(@RequestParam Integer id) {
+    public void xoaThuMuc(@RequestParam Integer id) {
         this.service.xoaThuMuc(id);
     }
 
@@ -155,4 +156,62 @@ public class TheGioiDenRestController {
     public Integer xoaBanner(@RequestParam Integer id) {
         return this.service.xoaBanner(id);
     }
+
+// API sắp xếp thứ tự ưu tiên
+
+    //API sắp xếp thứ tự ưu tiên của sản phẩm
+    @PutMapping("/uu-tien/san-pham")
+    public void uuTienSanPham(@RequestBody List<SanPham> sanPham){
+        this.service.mucDoUuTienSanPham(sanPham);
+    }
+
+    @PutMapping("/uu-tien/danh-muc")
+    public void uuTienDanhMuc(@RequestBody List<DanhMucSanPham> danhMucSanPham){
+        this.service.mucDoUuTienDanhMucSanPham(danhMucSanPham);
+    }
+
+    @PutMapping("/uu-tien/thu-muc")
+    public void uuTienThuMuc(@RequestBody List<ThuMucDto> thuMucDtos){
+        this.service.mucDoUuTienThuMuc(thuMucDtos);
+    }
+
+    @PutMapping("/uu-tien/tong-muc")
+    public void uuTienTongMuc(@RequestBody List<TongMucDto> tongMucDto){
+        this.service.mucDoUuTienTongMuc(tongMucDto);
+    }
+
+// API Tổng mục
+
+    // API get all Tổng mục
+    @GetMapping("/get-all-tong-muc")
+    public List<TongMucDto> getAllTongMuc() {
+        return this.service.getAllTongMuc();
+    }
+
+    // API get all Tổng mục và các thư mục con
+    @GetMapping("/get-all-tong-muc-child")
+    public List<TongMucRestDto> getAllTongMucChild() {
+        return this.service.getAllTonngMucChild();
+    }
+
+    // API thêm Tổng mục
+    @PostMapping("/them-tong-muc")
+    public void themTongMuc(@RequestBody TongMucDto tongMucDto) {
+        this.service.themTongMuc(tongMucDto.getTenTongMuc(),tongMucDto.getMucDoUuTien());
+    }
+
+    // API sửa Tổng mục
+    @PutMapping("/sua-tong-muc")
+    public void suaTongMuc(@RequestBody TongMucDto tongMucDto) {
+        this.service.suaTongMuc(tongMucDto);
+    }
+
+    // API xóa Tổng mục
+    @DeleteMapping("/xoa-tong-muc")
+    public void xoaTonguMuc(@RequestParam Integer id) {
+        this.service.xoaTongMuc(id);
+    }
+
+
+
 }

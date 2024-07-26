@@ -3,6 +3,7 @@ package com.example.demo.TheGioiDen.Service;
 import com.example.demo.TheGioiDen.Repository.*;
 import com.example.demo.TheGioiDen.Request.SanPhamResDto;
 import com.example.demo.TheGioiDen.Res.ThuMucRestDto;
+import com.example.demo.TheGioiDen.Res.TongMucRestDto;
 import com.example.demo.TheGioiDen.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class TheGioiDenService {
 
     @Autowired
     private IBannerRepository bannerRepository;
+
+    @Autowired
+    private ITongMucRepository tongMucRepository;
 
 
     public List<SanPham> getAllSanPham(Integer page, Integer size) {
@@ -73,7 +77,8 @@ public class TheGioiDenService {
                 sanPham.getSanPham().getLinkAnhChinh(),
                 sanPham.getSanPham().getDanhMucSanPhamId(),
                 sanPham.getSanPham().getHieuSuat(),
-                sanPham.getSanPham().getGocChieu()
+                sanPham.getSanPham().getGocChieu(),
+                sanPham.getSanPham().getMucDoUuTien()
 
         );
         Integer id = this.theGioiDenRepository.findByIdMax();
@@ -100,7 +105,7 @@ public class TheGioiDenService {
 
     @Transactional
     public Boolean themDanhMuc(DanhMucSanPham danhMucSanPham) {
-        this.danhMucSanPhamRepository.insertItem(danhMucSanPham.getTenDanhMuc(), danhMucSanPham.getAnhDanhMuc(),danhMucSanPham.getIdThuMuc());
+        this.danhMucSanPhamRepository.insertItem(danhMucSanPham.getTenDanhMuc(), danhMucSanPham.getAnhDanhMuc(),danhMucSanPham.getIdThuMuc(),danhMucSanPham.getMucDoUuTien());
         return true;
     }
 
@@ -134,7 +139,8 @@ public class TheGioiDenService {
                 objInput.getSanPham().getDanhMucSanPhamId(),
                 objInput.getSanPham().getId(),
                 objInput.getSanPham().getHieuSuat(),
-                objInput.getSanPham().getGocChieu()
+                objInput.getSanPham().getGocChieu(),
+                objInput.getSanPham().getMucDoUuTien()
         );
         this.anhSanPhamRepository.deleteByIdSanPham(objInput.getSanPham().getId());
         if ( objInput.getListAnh()!=null){
@@ -156,8 +162,8 @@ public class TheGioiDenService {
     }
 
     @Transactional
-    public void themThuMuc(String tenThuMuc){
-        this.thuMucRepository.insertItem(tenThuMuc);
+    public void themThuMuc(String tenThuMuc,Integer mucDoUuTien,Integer idTongMuc){
+        this.thuMucRepository.insertItem(tenThuMuc,mucDoUuTien,idTongMuc);
     }
 
     @Transactional
@@ -182,6 +188,7 @@ public class TheGioiDenService {
                 ThuMucRestDto thuMucRestDto=new ThuMucRestDto();
                 thuMucRestDto.setTenThuMuc(thuMucRestDtoList.get(i).getTenThuMuc());
                 thuMucRestDto.setId(thuMucRestDtoList.get(i).getId());
+                thuMucRestDto.setMucDoUuTien(thuMucRestDtoList.get(i).getMucDoUuTien());
                 thuMucRestDto.setListDanhMuc(this.danhMucSanPhamRepository.findByIdThuMuc(thuMucRestDto.getId()));
                 list.add(thuMucRestDto);
             }
@@ -203,6 +210,76 @@ public class TheGioiDenService {
 
     public List<BannerDto> getAllBanner(){
         return this.bannerRepository.getAllBanner();
+    }
+
+    @Transactional
+    public void mucDoUuTienSanPham(List<SanPham> sanPham){
+        for (int i = 0; i < sanPham.size(); i++) {
+            this.theGioiDenRepository.mucDoUuTien(sanPham.get(i).getMucDoUuTien(),sanPham.get(i).getId());
+        }
+    }
+
+    @Transactional
+    public void mucDoUuTienDanhMucSanPham(List<DanhMucSanPham> danhMucSanPhams){
+        for (int i = 0; i < danhMucSanPhams.size(); i++) {
+            this.danhMucSanPhamRepository.mucDoUuTien(danhMucSanPhams.get(i).getMucDoUuTien(),danhMucSanPhams.get(i).getId());
+        }
+    }
+
+    @Transactional
+    public void mucDoUuTienThuMuc(List<ThuMucDto> thuMucDtos){
+        for (int i = 0; i < thuMucDtos.size(); i++) {
+            this.thuMucRepository.mucDoUuTien(thuMucDtos.get(i).getMucDoUuTien(),thuMucDtos.get(i).getId());
+        }
+    }
+
+    // Tổng mục
+
+    @Transactional
+    public void themTongMuc(String tenTongMuc,Integer mucDoUuTien){
+        this.tongMucRepository.insertItem(tenTongMuc,mucDoUuTien);
+    }
+
+    @Transactional
+    public void suaTongMuc(TongMucDto tongMucDto){
+        this.tongMucRepository.save(tongMucDto);
+    }
+
+    @Transactional
+    public void xoaTongMuc(Integer id){
+        this.tongMucRepository.deleteByIdTongMuc(id);
+    }
+
+    public List<TongMucDto> getAllTongMuc(){
+        return this.tongMucRepository.getAllTongMuc();
+    }
+
+    public List<TongMucRestDto> getAllTonngMucChild(){
+        List<ThuMucRestDto> thuMucRestDtoList=this.getAllThuMucDanhMuc();
+        List<TongMucDto> list=this.tongMucRepository.getAllTongMuc();
+        List<TongMucRestDto> tongMuc=new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            TongMucRestDto tongMucRestDto=new TongMucRestDto();
+            tongMucRestDto.setTenTongMuc(list.get(i).getTenTongMuc());
+            tongMucRestDto.setId(list.get(i).getId());
+            tongMucRestDto.setMucDoUuTien(list.get(i).getMucDoUuTien());
+            List<ThuMucRestDto> thuMucRestDto=new ArrayList<>();
+            for (int j = 0; j < thuMucRestDtoList.size(); j++) {
+                if (tongMucRestDto.getId()==thuMucRestDtoList.get(j).getId()){
+                    thuMucRestDto.add(thuMucRestDtoList.get(j));
+                }
+            }
+            tongMucRestDto.setListThuMuc(thuMucRestDto);
+            tongMuc.add(tongMucRestDto);
+        }
+        return tongMuc;
+    }
+
+    @Transactional
+    public void mucDoUuTienTongMuc(List<TongMucDto> TongMucDto){
+        for (int i = 0; i < TongMucDto.size(); i++) {
+            this.tongMucRepository.mucDoUuTien(TongMucDto.get(i).getMucDoUuTien(),TongMucDto.get(i).getId());
+        }
     }
 
 }

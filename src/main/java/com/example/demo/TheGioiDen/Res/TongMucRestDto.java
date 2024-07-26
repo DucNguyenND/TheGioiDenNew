@@ -13,10 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ThuMucRestDto implements Serializable {
+public class TongMucRestDto implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String tenThuMuc;
+    private String tenTongMuc;
     private Integer id;
     private Integer mucDoUuTien;
-    private List<DanhMucSanPham> listDanhMuc;
+    private List<ThuMucRestDto> listThuMuc;
 }
