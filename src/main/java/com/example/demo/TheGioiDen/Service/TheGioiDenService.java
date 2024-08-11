@@ -100,7 +100,7 @@ public class TheGioiDenService {
         if (sanPham.getListCongSuat() != null) {
             List<PhanLoaiDto> list = sanPham.getListCongSuat();
             for (int i = 0; i < list.size(); i++) {
-                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),list.get(i).getGiaTien(),1,"Công suất ",id);
+                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),list.get(i).getGroupValue(),1,"Công suất ",id);
             }
         }
 
