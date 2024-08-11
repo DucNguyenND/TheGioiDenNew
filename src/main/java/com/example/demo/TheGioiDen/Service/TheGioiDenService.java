@@ -100,21 +100,21 @@ public class TheGioiDenService {
         if (sanPham.getListCongSuat() != null) {
             List<PhanLoaiDto> list = sanPham.getListCongSuat();
             for (int i = 0; i < list.size(); i++) {
-                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),list.get(i).getGroupValue(),1,"Công suất ",id);
+                this.phanLoaiRepository.insertItem("Công suất ",list.get(i).getGroupValue(),1,list.get(i).getGiaTien(),id);
             }
         }
 
         if (sanPham.getListKichThuoc() != null) {
             List<PhanLoaiDto> list = sanPham.getListKichThuoc();
             for (int i = 0; i < list.size(); i++) {
-                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),null,2,"Kích thước ",id);
+                this.phanLoaiRepository.insertItem("Kích thước ",null,2,null,id);
             }
         }
 
         if (sanPham.getListDynamic() != null) {
             List<PhanLoaiDto> list = sanPham.getListDynamic();
             for (int i = 0; i < list.size(); i++) {
-                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),null,3,"Dynamic ",id);
+                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),null,3,null,id);
             }
         }
         return true;

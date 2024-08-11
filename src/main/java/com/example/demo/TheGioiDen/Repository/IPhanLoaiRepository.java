@@ -12,12 +12,12 @@ import java.util.List;
 public interface IPhanLoaiRepository extends JpaRepository<PhanLoaiDto, Integer> {
 
     @Modifying(clearAutomatically = true)
-    @Query(value ="insert into public.phan_loai(ten_phan_loai,group_value,group_code,group_name,id_san_pham) values(?1,?2,?3,?4,?5)",nativeQuery = true)
+    @Query(value ="insert into public.phan_loai(ten_phan_loai,group_value,group_code,gia_tien,id_san_pham) values(?1,?2,?3,?4,?5)",nativeQuery = true)
     public void insertItem(
             @Param("tenPhanLoai") String tenPhanLoai,
             @Param("groupValue") String groupValue,
             @Param("groupCode") Integer groupCode,
-            @Param("groupName") String groupName,
+            @Param("giaTien") BigDecimal giaTien,
             @Param("idSanPham") Integer idSanPham
     );
 

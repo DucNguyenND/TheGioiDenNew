@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "PHAN_LOAI")
@@ -34,8 +35,8 @@ public class PhanLoaiDto implements Serializable {
     @Column(name = "GROUP_CODE")
     private Integer groupCode;
 
-    @Column(name = "GROUP_NAME")
-    private String groupName;
+    @Column(name = "GIA_TIEN")
+    private BigDecimal giaTien;
 
     @Column(name = "ID_SAN_PHAM")
     private Integer idSanPham;
