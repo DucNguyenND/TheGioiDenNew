@@ -1,11 +1,9 @@
 package com.example.demo.TheGioiDen.Request;
 
 import com.example.demo.TheGioiDen.entity.AnhSanPham;
+import com.example.demo.TheGioiDen.entity.PhanLoaiDto;
 import com.example.demo.TheGioiDen.entity.SanPham;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 public class SanPhamResDto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,6 +22,9 @@ public class SanPhamResDto implements Serializable {
 
    private List<AnhSanPham>listAnh;
 
+    private List<PhanLoaiDto> listCongSuat;
+    private List<PhanLoaiDto> listKichThuoc;
+    private List<PhanLoaiDto> listDynamic;
 
 }
 

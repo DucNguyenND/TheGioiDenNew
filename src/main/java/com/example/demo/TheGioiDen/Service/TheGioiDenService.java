@@ -1,6 +1,7 @@
 package com.example.demo.TheGioiDen.Service;
 
 import com.example.demo.TheGioiDen.Repository.*;
+//import com.example.demo.TheGioiDen.Request;
 import com.example.demo.TheGioiDen.Request.SanPhamResDto;
 import com.example.demo.TheGioiDen.Res.ThuMucRestDto;
 import com.example.demo.TheGioiDen.Res.TongMucRestDto;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,9 @@ public class TheGioiDenService {
     @Autowired
     private ITongMucRepository tongMucRepository;
 
+    @Autowired
+    private IPhanLoaiRepository phanLoaiRepository;
+
 
     public List<SanPham> getAllSanPham(Integer page, Integer size) {
         page=page*size;
@@ -51,6 +56,9 @@ public class TheGioiDenService {
         SanPhamResDto sanPhamResDto = new SanPhamResDto();
         sanPhamResDto.setSanPham(this.theGioiDenRepository.getSanPhamById(id));
         sanPhamResDto.setListAnh(this.anhSanPhamRepository.getAnhSanPhamByIdSanPham(id));
+        sanPhamResDto.setListCongSuat(this.phanLoaiRepository.findCongSuatByIdSanPham(id));
+        sanPhamResDto.setListKichThuoc(this.phanLoaiRepository.findKichThuocByIdSanPham(id));
+        sanPhamResDto.setListDynamic(this.phanLoaiRepository.findDynamicByIdSanPham(id));
         return sanPhamResDto;
     }
 
@@ -86,6 +94,27 @@ public class TheGioiDenService {
             List<AnhSanPham> list = sanPham.getListAnh();
             for (int i = 0; i < sanPham.getListAnh().size(); i++) {
                 this.anhSanPhamRepository.insertItem(list.get(i).getLinkAnh(), id);
+            }
+        }
+
+        if (sanPham.getListCongSuat() != null) {
+            List<PhanLoaiDto> list = sanPham.getListCongSuat();
+            for (int i = 0; i < list.size(); i++) {
+                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),list.get(i).getGiaTien(),1,"Công suất ",id);
+            }
+        }
+
+        if (sanPham.getListKichThuoc() != null) {
+            List<PhanLoaiDto> list = sanPham.getListKichThuoc();
+            for (int i = 0; i < list.size(); i++) {
+                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),null,2,"Kích thước ",id);
+            }
+        }
+
+        if (sanPham.getListDynamic() != null) {
+            List<PhanLoaiDto> list = sanPham.getListDynamic();
+            for (int i = 0; i < list.size(); i++) {
+                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),null,3,"Dynamic ",id);
             }
         }
         return true;

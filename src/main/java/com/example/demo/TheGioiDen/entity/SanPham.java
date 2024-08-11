@@ -76,4 +76,5 @@ public class SanPham implements Serializable {
     @Column(name = "MUC_DO_UU_TIEN")
     private Integer mucDoUuTien;
 
+
 }
