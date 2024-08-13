@@ -3,6 +3,7 @@ package com.example.demo.TheGioiDen.Service;
 import com.example.demo.TheGioiDen.Repository.*;
 //import com.example.demo.TheGioiDen.Request;
 import com.example.demo.TheGioiDen.Request.SanPhamResDto;
+import com.example.demo.TheGioiDen.Request.TrangChuDto;
 import com.example.demo.TheGioiDen.Res.ThuMucRestDto;
 import com.example.demo.TheGioiDen.Res.TongMucRestDto;
 import com.example.demo.TheGioiDen.entity.*;
@@ -309,6 +310,20 @@ public class TheGioiDenService {
         for (int i = 0; i < TongMucDto.size(); i++) {
             this.tongMucRepository.mucDoUuTien(TongMucDto.get(i).getMucDoUuTien(),TongMucDto.get(i).getId());
         }
+    }
+
+
+    public List<TrangChuDto> getTrangChu() {
+        List<DanhMucSanPham> list=this.danhMucSanPhamRepository.findDanhMucTrangChu();
+        List<TrangChuDto> listTrangChu=new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            TrangChuDto trangChuDto=new TrangChuDto();
+            trangChuDto.setDanhMucSanPham(list.get(i));
+            List<SanPham> listSanPham=this.theGioiDenRepository.getAllSanPhamByIdDanhMuc(list.get(i).getId());
+            trangChuDto.setListSanPham(listSanPham);
+            listTrangChu.add(trangChuDto);
+        }
+        return listTrangChu;
     }
 
 }

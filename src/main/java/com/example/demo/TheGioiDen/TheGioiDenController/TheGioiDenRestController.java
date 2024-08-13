@@ -1,6 +1,7 @@
 package com.example.demo.TheGioiDen.TheGioiDenController;
 
 import com.example.demo.TheGioiDen.Request.SanPhamResDto;
+import com.example.demo.TheGioiDen.Request.TrangChuDto;
 import com.example.demo.TheGioiDen.Res.ThuMucRestDto;
 import com.example.demo.TheGioiDen.Res.TongMucRestDto;
 import com.example.demo.TheGioiDen.Service.TheGioiDenService;
@@ -212,6 +213,10 @@ public class TheGioiDenRestController {
         this.service.xoaTongMuc(id);
     }
 
-
+// API trang chủ
+    @GetMapping("/trang-chu")
+    public List<TrangChuDto> getTrangChu() {
+    return this.service.getTrangChu();
+}
 
 }

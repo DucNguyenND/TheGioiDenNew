@@ -80,4 +80,7 @@ public interface ITheGioiDenRepository  extends JpaRepository<SanPham, Integer> 
             @Param("mucDoUuTien") Integer mucDoUuTien,
             @Param("id") Integer id
     );
+
+    @Query(value ="with tmp as(select count(*) as TOTAL_ELEMENT from SAN_PHAM where danh_muc_san_pham_id=?1)select tmp.*,sp.* from public.SAN_PHAM sp join tmp on 1=1 and sp.danh_muc_san_pham_id=?1 order by MUC_DO_UU_TIEN",nativeQuery = true)
+    public List<SanPham> getAllSanPhamByIdDanhMuc(@Param("idDanhMuc") Integer idDanhMuc);
 }

@@ -26,6 +26,9 @@ public interface IDanhMucSanPhamRepository extends JpaRepository<DanhMucSanPham,
     @Query(value ="select * from public.danh_muc_san_pham order by MUC_DO_UU_TIEN",nativeQuery = true)
     public List<DanhMucSanPham> findAllDanhMuc();
 
+    @Query(value ="select * from public.danh_muc_san_pham order by MUC_DO_UU_TIEN limit 5",nativeQuery = true)
+    public List<DanhMucSanPham> findDanhMucTrangChu();
+
     @Modifying(clearAutomatically = true)
     @Query(value ="update public.danh_muc_san_pham set muc_do_uu_tien=?1 where id=?2",nativeQuery = true)
     public void mucDoUuTien(
