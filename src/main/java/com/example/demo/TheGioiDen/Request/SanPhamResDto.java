@@ -19,6 +19,9 @@ public class SanPhamResDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private SanPham sanPham;
+    private Integer idDanhMuc;
+    private Integer idThuMuc;
+    private Integer idTongMuc;
 
    private List<AnhSanPham>listAnh;
 

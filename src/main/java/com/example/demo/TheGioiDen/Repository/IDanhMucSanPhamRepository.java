@@ -35,4 +35,7 @@ public interface IDanhMucSanPhamRepository extends JpaRepository<DanhMucSanPham,
             @Param("mucDoUuTien") Integer mucDoUuTien,
             @Param("id") Integer id
     );
+    @Query(value ="select * from public.danh_muc_san_pham where id=?1",nativeQuery = true)
+    public DanhMucSanPham findByIdDanhMuc(@Param("id")Integer id);
+
 }

@@ -56,6 +56,10 @@ public class TheGioiDenService {
     public SanPhamResDto findByID(Integer id) {
         SanPhamResDto sanPhamResDto = new SanPhamResDto();
         sanPhamResDto.setSanPham(this.theGioiDenRepository.getSanPhamById(id));
+        sanPhamResDto.setIdDanhMuc(sanPhamResDto.getSanPham().getDanhMucSanPhamId());
+        DanhMucSanPham danhMucSanPham=this.danhMucSanPhamRepository.findByIdDanhMuc(sanPhamResDto.getSanPham().getDanhMucSanPhamId());
+        sanPhamResDto.setIdThuMuc(danhMucSanPham==null?null:danhMucSanPham.getIdThuMuc());
+        sanPhamResDto.setIdTongMuc(danhMucSanPham==null?null:sanPhamResDto.getIdTongMuc());
         sanPhamResDto.setListAnh(this.anhSanPhamRepository.getAnhSanPhamByIdSanPham(id));
         sanPhamResDto.setListCongSuat(this.phanLoaiRepository.findCongSuatByIdSanPham(id));
         sanPhamResDto.setListKichThuoc(this.phanLoaiRepository.findKichThuocByIdSanPham(id));
