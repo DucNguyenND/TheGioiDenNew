@@ -58,8 +58,13 @@ public class TheGioiDenService {
         sanPhamResDto.setSanPham(this.theGioiDenRepository.getSanPhamById(id));
         sanPhamResDto.setIdDanhMuc(sanPhamResDto.getSanPham().getDanhMucSanPhamId());
         DanhMucSanPham danhMucSanPham=this.danhMucSanPhamRepository.findByIdDanhMuc(sanPhamResDto.getSanPham().getDanhMucSanPhamId());
-        sanPhamResDto.setIdThuMuc(danhMucSanPham==null?null:danhMucSanPham.getIdThuMuc());
-        sanPhamResDto.setIdTongMuc(danhMucSanPham==null?null:sanPhamResDto.getIdTongMuc());
+        sanPhamResDto.setTenDanhMuc(danhMucSanPham==null?null:danhMucSanPham.getTenDanhMuc());
+        ThuMucDto thuMucDto=this.thuMucRepository.getThuMucById(danhMucSanPham.getIdThuMuc());
+        sanPhamResDto.setIdThuMuc(thuMucDto==null?null:thuMucDto.getId());
+        sanPhamResDto.setTenThuMuc(thuMucDto==null?null:thuMucDto.getTenThuMuc());
+        TongMucDto tongMucDto=this.tongMucRepository.getTongMucById(thuMucDto==null?null:thuMucDto.getIdTongMuc());
+        sanPhamResDto.setIdTongMuc(tongMucDto==null?null:tongMucDto.getId());
+        sanPhamResDto.setTenTongMuc(tongMucDto==null?null:tongMucDto.getTenTongMuc());
         sanPhamResDto.setListAnh(this.anhSanPhamRepository.getAnhSanPhamByIdSanPham(id));
         sanPhamResDto.setListCongSuat(this.phanLoaiRepository.findCongSuatByIdSanPham(id));
         sanPhamResDto.setListKichThuoc(this.phanLoaiRepository.findKichThuocByIdSanPham(id));

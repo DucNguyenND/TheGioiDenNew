@@ -20,8 +20,11 @@ public class SanPhamResDto implements Serializable {
 
     private SanPham sanPham;
     private Integer idDanhMuc;
+    private String tenDanhMuc;
     private Integer idThuMuc;
+    private String tenThuMuc;
     private Integer idTongMuc;
+    private String tenTongMuc;
 
    private List<AnhSanPham>listAnh;
 

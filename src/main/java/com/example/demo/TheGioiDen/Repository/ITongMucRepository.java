@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface ITongMucRepository extends JpaRepository<TongMucDto, Integer> {
     @Query(value ="select * from public.tong_muc where id=:id ",nativeQuery = true)
-    public List<TongMucDto> getTongMucById(@Param("id") Integer id);
+    public TongMucDto getTongMucById(@Param("id") Integer id);
 
     @Query(value ="select * from public.tong_muc order by muc_do_uu_tien",nativeQuery = true)
     public List<TongMucDto> getAllTongMuc();

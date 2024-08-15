@@ -44,4 +44,7 @@ public interface IThuMucRepository extends JpaRepository<ThuMucDto, Integer> {
     @Query(value ="select * from public.thu_muc where id_thu_muc=?1 order by MUC_DO_UU_TIEN",nativeQuery = true)
     public List<ThuMucDto> findByIdTongMuc(@Param("idTongMuc")Integer idTongMuc);
 
+    @Query(value ="select * from public.thu_muc where id=:id ",nativeQuery = true)
+    public ThuMucDto getThuMucById(@Param("id") Integer id);
+
 }
