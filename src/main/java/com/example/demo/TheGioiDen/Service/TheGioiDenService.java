@@ -117,14 +117,14 @@ public class TheGioiDenService {
         if (sanPham.getListKichThuoc() != null) {
             List<PhanLoaiDto> list = sanPham.getListKichThuoc();
             for (int i = 0; i < list.size(); i++) {
-                this.phanLoaiRepository.insertItem("Kích thước ",null,2,null,id);
+                this.phanLoaiRepository.insertItem("Kích thước ",list.get(i).getGroupValue(),2,null,id);
             }
         }
 
         if (sanPham.getListDynamic() != null) {
             List<PhanLoaiDto> list = sanPham.getListDynamic();
             for (int i = 0; i < list.size(); i++) {
-                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),null,3,null,id);
+                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),list.get(i).getGroupValue(),3,null,id);
             }
         }
         return true;
