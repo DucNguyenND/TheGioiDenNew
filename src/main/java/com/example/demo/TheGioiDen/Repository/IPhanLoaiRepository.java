@@ -29,4 +29,9 @@ public interface IPhanLoaiRepository extends JpaRepository<PhanLoaiDto, Integer>
 
     @Query(value ="select * from public.phan_loai where id_san_pham=?1 and group_code=3",nativeQuery = true)
     public List<PhanLoaiDto> findDynamicByIdSanPham(@Param("idSanPham") Integer idSanPham);
+
+    @Modifying(clearAutomatically = true)
+    @Query(value ="delete from public.phan_loai where id_san_pham=:idSanPham",nativeQuery = true)
+    public Integer deleteByIdSanPham(@Param("idSanPham") Integer idSanPham);
+
 }

@@ -182,11 +182,32 @@ public class TheGioiDenService {
                 objInput.getSanPham().getMucDoUuTien()
         );
         this.anhSanPhamRepository.deleteByIdSanPham(objInput.getSanPham().getId());
+        this.phanLoaiRepository.deleteByIdSanPham(objInput.getSanPham().getId());
         if ( objInput.getListAnh()!=null){
             for (int i = 0; i < objInput.getListAnh().size(); i++) {
                 this.themMoiAnhByIdSanPham(objInput.getSanPham().getId(), objInput.getListAnh().get(i));
             }
 
+        }
+        if (objInput.getListCongSuat() != null) {
+            List<PhanLoaiDto> list = objInput.getListCongSuat();
+            for (int i = 0; i < list.size(); i++) {
+                this.phanLoaiRepository.insertItem("Công suất ",list.get(i).getGroupValue(),1,list.get(i).getGiaTien(),objInput.getSanPham().getId());
+            }
+        }
+
+        if (objInput.getListKichThuoc() != null) {
+            List<PhanLoaiDto> list = objInput.getListKichThuoc();
+            for (int i = 0; i < list.size(); i++) {
+                this.phanLoaiRepository.insertItem("Kích thước ",list.get(i).getGroupValue(),2,null,objInput.getSanPham().getId());
+            }
+        }
+
+        if (objInput.getListDynamic() != null) {
+            List<PhanLoaiDto> list = objInput.getListDynamic();
+            for (int i = 0; i < list.size(); i++) {
+                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),list.get(i).getGroupValue(),3,null,objInput.getSanPham().getId());
+            }
         }
 
     }
