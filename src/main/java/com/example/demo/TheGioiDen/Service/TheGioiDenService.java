@@ -1,7 +1,6 @@
 package com.example.demo.TheGioiDen.Service;
 
 import com.example.demo.TheGioiDen.Repository.*;
-//import com.example.demo.TheGioiDen.Request;
 import com.example.demo.TheGioiDen.Request.SanPhamResDto;
 import com.example.demo.TheGioiDen.Request.TrangChuDto;
 import com.example.demo.TheGioiDen.Res.ThuMucRestDto;
@@ -11,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TheGioiDenService {
@@ -43,6 +42,10 @@ public class TheGioiDenService {
         page=page*size;
         return this.theGioiDenRepository.getAllSanPham(size, page);
     }
+    public SanPham getSanPhamById(int id){
+        Optional<SanPham> sanPham = theGioiDenRepository.findById(id);
+        return sanPham.orElse(null);
+    }
 
     public List<SanPham> getAllSanPhamByIdDanhMuc(Integer page, Integer id, Integer size) {
         page=page*size;
@@ -57,7 +60,8 @@ public class TheGioiDenService {
         SanPhamResDto sanPhamResDto = new SanPhamResDto();
         sanPhamResDto.setSanPham(this.theGioiDenRepository.getSanPhamById(id));
         sanPhamResDto.setIdDanhMuc(sanPhamResDto.getSanPham().getDanhMucSanPhamId());
-        DanhMucSanPham danhMucSanPham=this.danhMucSanPhamRepository.findByIdDanhMuc(sanPhamResDto.getSanPham().getDanhMucSanPhamId());
+        DanhMucSanPham danhMucSanPham = this.danhMucSanPhamRepository.findById(sanPhamResDto.getSanPham().getDanhMucSanPhamId())
+                .orElse(null);
         sanPhamResDto.setTenDanhMuc(danhMucSanPham==null?null:danhMucSanPham.getTenDanhMuc());
         ThuMucDto thuMucDto=this.thuMucRepository.getThuMucById(danhMucSanPham.getIdThuMuc());
         sanPhamResDto.setIdThuMuc(thuMucDto==null?null:thuMucDto.getId());
@@ -71,10 +75,13 @@ public class TheGioiDenService {
         sanPhamResDto.setListDynamic(this.phanLoaiRepository.findDynamicByIdSanPham(id));
         return sanPhamResDto;
     }
+    public SanPham findById(Integer id){
+        return theGioiDenRepository.findById(id).get();
+    }
 
     @Transactional
     public Integer xoaSanPham(Integer id) {
-        this.theGioiDenRepository.deleteByIdSanPham(id);
+        this.theGioiDenRepository.deleteById(id);
         return this.anhSanPhamRepository.deleteByIdSanPham(id);
     }
 
@@ -102,29 +109,29 @@ public class TheGioiDenService {
         Integer id = this.theGioiDenRepository.findByIdMax();
         if (sanPham.getListAnh() != null) {
             List<AnhSanPham> list = sanPham.getListAnh();
-            for (int i = 0; i < sanPham.getListAnh().size(); i++) {
-                this.anhSanPhamRepository.insertItem(list.get(i).getLinkAnh(), id);
+            for (AnhSanPham anh : list) {
+                this.anhSanPhamRepository.insertItem(anh.getLinkAnh(), id);
             }
         }
 
         if (sanPham.getListCongSuat() != null) {
             List<PhanLoaiDto> list = sanPham.getListCongSuat();
-            for (int i = 0; i < list.size(); i++) {
-                this.phanLoaiRepository.insertItem("Công suất ",list.get(i).getGroupValue(),1,list.get(i).getGiaTien(),id);
+            for (PhanLoaiDto phanLoai : list) {
+                this.phanLoaiRepository.insertItem("Công suất ",phanLoai.getGroupValue(),1,phanLoai.getGiaTien(),id);
             }
         }
 
         if (sanPham.getListKichThuoc() != null) {
             List<PhanLoaiDto> list = sanPham.getListKichThuoc();
-            for (int i = 0; i < list.size(); i++) {
-                this.phanLoaiRepository.insertItem("Kích thước ",list.get(i).getGroupValue(),2,null,id);
+            for (PhanLoaiDto phanLoai : list) {
+                this.phanLoaiRepository.insertItem("Kích thước ",phanLoai.getGroupValue(),2,null,id);
             }
         }
 
         if (sanPham.getListDynamic() != null) {
             List<PhanLoaiDto> list = sanPham.getListDynamic();
-            for (int i = 0; i < list.size(); i++) {
-                this.phanLoaiRepository.insertItem(list.get(i).getTenPhanLoai(),list.get(i).getGroupValue(),3,null,id);
+            for (PhanLoaiDto phanLoai : list) {
+                this.phanLoaiRepository.insertItem(phanLoai.getTenPhanLoai(),phanLoai.getGroupValue(),3,null,id);
             }
         }
         return true;

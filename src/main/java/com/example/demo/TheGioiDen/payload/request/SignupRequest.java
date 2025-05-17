@@ -1,9 +1,9 @@
 package com.example.demo.TheGioiDen.payload.request;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 public class SignupRequest {
@@ -12,11 +12,11 @@ public class SignupRequest {
     private String username;
 
     @NotBlank
-    @Size(max = 50)
-    @Email
-    private String email;
+    @Size(min = 6, max = 100)
+    private String Email;
 
     @NotBlank
     @Size(min = 6, max = 40)
     private String password;
-} 
+
+}

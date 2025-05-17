@@ -1,8 +1,8 @@
-package com.example.demo.TheGioiDen.service;
+package com.example.demo.TheGioiDen.Service;
 
+import com.example.demo.TheGioiDen.entity.SanPham;
 import com.example.demo.TheGioiDen.model.Cart;
 import com.example.demo.TheGioiDen.model.CartItem;
-import com.example.demo.TheGioiDen.model.Product;
 import com.example.demo.TheGioiDen.model.User;
 import com.example.demo.TheGioiDen.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class CartService {
     }
 
     @Transactional
-    public void addToCart(User user, Product product, int quantity) {
+    public void addToCart(User user, SanPham product, int quantity) {
         Cart cart = getOrCreateCart(user);
         
         // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa

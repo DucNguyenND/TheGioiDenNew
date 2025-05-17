@@ -1,7 +1,8 @@
 package com.example.demo.TheGioiDen.model;
 
-import jakarta.persistence.*;
 import lombok.Data;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Cart {
 
     public void updateTotalPrice() {
         this.totalPrice = items.stream()
-                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
+                .mapToDouble(item ->Integer.parseInt( item.getProduct().getGiaSp()) * item.getQuantity())
                 .sum();
     }
 
