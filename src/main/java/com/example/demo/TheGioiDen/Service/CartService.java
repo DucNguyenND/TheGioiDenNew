@@ -1,5 +1,6 @@
 package com.example.demo.TheGioiDen.Service;
 
+import com.example.demo.TheGioiDen.entity.Product;
 import com.example.demo.TheGioiDen.entity.SanPham;
 import com.example.demo.TheGioiDen.model.Cart;
 import com.example.demo.TheGioiDen.model.CartItem;
@@ -27,7 +28,7 @@ public class CartService {
     }
 
     @Transactional
-    public void addToCart(User user, SanPham product, int quantity) {
+    public void addToCart(User user, Product product, int quantity) {
         Cart cart = getOrCreateCart(user);
         
         // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa

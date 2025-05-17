@@ -1,6 +1,6 @@
 package com.example.demo.TheGioiDen.model;
 
-import com.example.demo.TheGioiDen.entity.SanPham;
+import com.example.demo.TheGioiDen.entity.Product;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,11 +16,11 @@ public class CartItem {
     private Cart cart;
 
     @ManyToOne
-    private SanPham product;
+    private Product product;
 
     private int quantity;
 
     public double getSubtotal() {
-        return Integer.parseInt( product.getGiaSp()) * quantity;
+        return Integer.parseInt(product.getGiaSp()) * quantity;
     }
 } 

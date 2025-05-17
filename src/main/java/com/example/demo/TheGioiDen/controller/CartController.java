@@ -3,7 +3,7 @@ package com.example.demo.TheGioiDen.controller;
 import com.example.demo.TheGioiDen.Service.CartService;
 import com.example.demo.TheGioiDen.Service.TheGioiDenService;
 import com.example.demo.TheGioiDen.Service.UserService;
-import com.example.demo.TheGioiDen.entity.SanPham;
+import com.example.demo.TheGioiDen.entity.Product;
 import com.example.demo.TheGioiDen.model.Cart;
 import com.example.demo.TheGioiDen.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class CartController {
             @PathVariable int productId,
             @RequestParam(defaultValue = "1") int quantity) {
         User user = userService.getCurrentUser();
-        SanPham product = productService.getSanPhamById(productId);
+        Product product = productService.getSanPhamByIdReturnProduct(productId);
         
         if (product == null) {
             return ResponseEntity.notFound().build();

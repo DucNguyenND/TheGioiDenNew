@@ -37,6 +37,9 @@ public class TheGioiDenService {
     @Autowired
     private IPhanLoaiRepository phanLoaiRepository;
 
+    @Autowired
+    private IProductRepository productRepository;
+
 
     public List<SanPham> getAllSanPham(Integer page, Integer size) {
         page=page*size;
@@ -47,6 +50,14 @@ public class TheGioiDenService {
         return sanPham.orElse(null);
     }
 
+    public Product getSanPhamByIdReturnProduct(int id){
+        Optional<Product> product = productRepository.findById(id);
+        if (!product.isPresent()) {
+            return null;
+        }
+        Product sp = product.get();
+        return sp;
+    }
     public List<SanPham> getAllSanPhamByIdDanhMuc(Integer page, Integer id, Integer size) {
         page=page*size;
         return this.theGioiDenRepository.getAllSanPhamByIdDanhMuc( id, size,page);
