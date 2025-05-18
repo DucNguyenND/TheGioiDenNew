@@ -60,6 +60,7 @@ public class WebSecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/api/auth/**")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/auth/")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/api/thegioi-den/**")).permitAll()
+                .requestMatchers(new AntPathRequestMatcher("/get-all-danh-muc")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/get-all-tong-muc-child")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/trang-chu")).permitAll()
                 .requestMatchers(new AntPathRequestMatcher("/get-all-danh-muc-by-thu-muc")).permitAll()
