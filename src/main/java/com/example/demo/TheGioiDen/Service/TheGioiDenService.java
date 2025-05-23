@@ -114,7 +114,8 @@ public class TheGioiDenService {
                 sanPham.getSanPham().getDanhMucSanPhamId(),
                 sanPham.getSanPham().getHieuSuat(),
                 sanPham.getSanPham().getGocChieu(),
-                sanPham.getSanPham().getMucDoUuTien()
+                sanPham.getSanPham().getMucDoUuTien(),
+                sanPham.getThongSo()
 
         );
         Integer id = this.theGioiDenRepository.findByIdMax();
@@ -145,6 +146,12 @@ public class TheGioiDenService {
                 this.phanLoaiRepository.insertItem(phanLoai.getTenPhanLoai(),phanLoai.getGroupValue(),3,null,id);
             }
         }
+        return true;
+    }
+
+    @Transactional
+    public Boolean themListSp(List<SanPhamResDto> listSanPham){
+        listSanPham.stream().forEach(sanPhamResDto -> this.themSanPham(sanPhamResDto));
         return true;
     }
 
@@ -197,7 +204,8 @@ public class TheGioiDenService {
                 objInput.getSanPham().getId(),
                 objInput.getSanPham().getHieuSuat(),
                 objInput.getSanPham().getGocChieu(),
-                objInput.getSanPham().getMucDoUuTien()
+                objInput.getSanPham().getMucDoUuTien(),
+                objInput.getSanPham().getThongSo()
         );
         this.anhSanPhamRepository.deleteByIdSanPham(objInput.getSanPham().getId());
         this.phanLoaiRepository.deleteByIdSanPham(objInput.getSanPham().getId());

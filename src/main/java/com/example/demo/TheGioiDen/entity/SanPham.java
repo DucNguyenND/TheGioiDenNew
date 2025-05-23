@@ -73,6 +73,9 @@ public class SanPham implements Serializable {
     @Column(name = "GOC_CHIEU")
     private String gocChieu;
 
+    @Column(name = "THONG_SO")
+    private String thongSo;
+
     @Column(name = "MUC_DO_UU_TIEN")
     private Integer mucDoUuTien;
 

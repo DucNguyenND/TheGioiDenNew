@@ -50,6 +50,12 @@ public class TheGioiDenRestController {
         return this.service.themSanPham(sanPham);
     }
 
+    //API thêm mới list sản phẩm
+    @PostMapping("/them-moi-list-sp")
+    public Boolean themMoi(@RequestBody List<SanPhamResDto> sanPham) {
+        return this.service.themListSp(sanPham);
+    }
+
     //API xóa sản phẩm theo ID(Xóa cả ảnh)
     @DeleteMapping("/xoa-san-pham")
     public Integer xoaSanPhamById(@RequestParam Integer id) {

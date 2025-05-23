@@ -25,7 +25,7 @@ public class SanPhamResDto implements Serializable {
     private String tenThuMuc;
     private Integer idTongMuc;
     private String tenTongMuc;
-
+    private String thongSo;
    private List<AnhSanPham>listAnh;
 
     private List<PhanLoaiDto> listCongSuat;
