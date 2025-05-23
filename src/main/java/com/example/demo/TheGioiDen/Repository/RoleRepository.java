@@ -1,4 +1,4 @@
-package com.example.demo.TheGioiDen.repository;
+package com.example.demo.TheGioiDen.Repository;
 
 import com.example.demo.TheGioiDen.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;

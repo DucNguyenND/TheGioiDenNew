@@ -1,5 +1,6 @@
 package com.example.demo.TheGioiDen.Service.impl;
 
+import com.example.demo.TheGioiDen.Repository.OrderRepository;
 import com.example.demo.TheGioiDen.Service.OrderService;
 import com.example.demo.TheGioiDen.Service.TheGioiDenService;
 import com.example.demo.TheGioiDen.entity.Product;
@@ -8,7 +9,6 @@ import com.example.demo.TheGioiDen.model.OrderItem;
 import com.example.demo.TheGioiDen.model.OrderStatus;
 import com.example.demo.TheGioiDen.model.User;
 import com.example.demo.TheGioiDen.payload.request.OrderRequest;
-import com.example.demo.TheGioiDen.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

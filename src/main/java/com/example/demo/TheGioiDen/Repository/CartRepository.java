@@ -1,4 +1,4 @@
-package com.example.demo.TheGioiDen.repository;
+package com.example.demo.TheGioiDen.Repository;
 
 import com.example.demo.TheGioiDen.model.Cart;
 import com.example.demo.TheGioiDen.model.User;

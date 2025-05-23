@@ -1,7 +1,7 @@
 package com.example.demo.TheGioiDen.security;
 
+import com.example.demo.TheGioiDen.Repository.UserRepository;
 import com.example.demo.TheGioiDen.model.User;
-import com.example.demo.TheGioiDen.repository.UserRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

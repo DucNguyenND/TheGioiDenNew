@@ -1,8 +1,9 @@
 package com.example.demo.TheGioiDen.Service.impl;
 
+import com.example.demo.TheGioiDen.Repository.UserRepository;
+import com.example.demo.TheGioiDen.Repository.RoleRepository;
 import com.example.demo.TheGioiDen.Service.UserService;
 import com.example.demo.TheGioiDen.model.User;
-import com.example.demo.TheGioiDen.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

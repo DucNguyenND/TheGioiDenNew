@@ -1,13 +1,13 @@
 package com.example.demo.TheGioiDen.controller;
 
+import com.example.demo.TheGioiDen.Repository.UserRepository;
+import com.example.demo.TheGioiDen.Repository.RoleRepository;
 import com.example.demo.TheGioiDen.model.Role;
 import com.example.demo.TheGioiDen.model.User;
 import com.example.demo.TheGioiDen.payload.request.LoginRequest;
 import com.example.demo.TheGioiDen.payload.request.SignupRequest;
 import com.example.demo.TheGioiDen.payload.response.JwtResponse;
 import com.example.demo.TheGioiDen.payload.response.MessageResponse;
-import com.example.demo.TheGioiDen.repository.RoleRepository;
-import com.example.demo.TheGioiDen.repository.UserRepository;
 import com.example.demo.TheGioiDen.security.JwtUtils;
 import com.example.demo.TheGioiDen.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;

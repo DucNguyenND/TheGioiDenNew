@@ -5,7 +5,7 @@ import com.example.demo.TheGioiDen.entity.SanPham;
 import com.example.demo.TheGioiDen.model.Cart;
 import com.example.demo.TheGioiDen.model.CartItem;
 import com.example.demo.TheGioiDen.model.User;
-import com.example.demo.TheGioiDen.repository.CartRepository;
+import com.example.demo.TheGioiDen.Repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
